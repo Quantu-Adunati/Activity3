@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="userINF">
+    <Key>
+      <PropertyRef Name="idOfUser" />
+    </Key>
+    <Property Name="idOfUser" Type="Int32" Nullable="false" />
+    <Property Name="gender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="userT" Relationship="Self.forTwo_fk" FromRole="userINF" ToRole="userT" />
+  </EntityType>
+  <EntityType Name="userT">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="userINF" Relationship="Self.forTwo_fk" FromRole="userT" ToRole="userINF" />
+    <NavigationProperty Name="userWork" Relationship="Self.for_fk" FromRole="userT" ToRole="userWork" />
+  </EntityType>
+  <EntityType Name="userWork">
+    <Key>
+      <PropertyRef Name="idUser" />
+    </Key>
+    <Property Name="idUser" Type="Int32" Nullable="false" />
+    <Property Name="workType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="userT" Relationship="Self.for_fk" FromRole="userWork" ToRole="userT" />
+  </EntityType>
+  <Association Name="forTwo_fk">
+    <End Role="userT" Type="Self.userT" Multiplicity="1" />
+    <End Role="userINF" Type="Self.userINF" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="userT">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="userINF">
+        <PropertyRef Name="idOfUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="for_fk">
+    <End Role="userT" Type="Self.userT" Multiplicity="1" />
+    <End Role="userWork" Type="Self.userWork" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="userT">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="userWork">
+        <PropertyRef Name="idUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="userINFs" EntityType="Self.userINF" />
+    <EntitySet Name="userTs" EntityType="Self.userT" />
+    <EntitySet Name="userWorks" EntityType="Self.userWork" />
+    <AssociationSet Name="forTwo_fk" Association="Self.forTwo_fk">
+      <End Role="userT" EntitySet="userTs" />
+      <End Role="userINF" EntitySet="userINFs" />
+    </AssociationSet>
+    <AssociationSet Name="for_fk" Association="Self.for_fk">
+      <End Role="userT" EntitySet="userTs" />
+      <End Role="userWork" EntitySet="userWorks" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

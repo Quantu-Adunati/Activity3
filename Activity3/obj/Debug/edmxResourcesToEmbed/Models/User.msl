@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities">
+    <EntitySetMapping Name="userINFs">
+      <EntityTypeMapping TypeName="TestModel.userINF">
+        <MappingFragment StoreEntitySet="userINF">
+          <ScalarProperty Name="idOfUser" ColumnName="idOfUser" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userTs">
+      <EntityTypeMapping TypeName="TestModel.userT">
+        <MappingFragment StoreEntitySet="userT">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userWorks">
+      <EntityTypeMapping TypeName="TestModel.userWork">
+        <MappingFragment StoreEntitySet="userWork">
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="workType" ColumnName="workType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
